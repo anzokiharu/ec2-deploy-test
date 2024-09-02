@@ -9,29 +9,29 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3  # 最新バージョンを確認し、必要なら更新
+      - uses: actions/checkout@v4  # 最新バージョンに更新
       - name: Set up Node.js
-        uses: actions/setup-node@v3  # Node.js 20に対応したバージョンがあれば更新
+        uses: actions/setup-node@v4  # 最新バージョンに更新
         with:
-          node-version: '20.10.0'  # 必要に応じてバージョンを指定
+          node-version: '20.10.0'  # Node.js 20に対応
       - run: npm install
       - run: npm run build
       - name: Upload Artifacts
-        uses: actions/upload-artifact@v3  # 最新バージョンに更新
+        uses: actions/upload-artifact@v4  # 最新バージョンに更新
         with:
           name: htdocs
-          path: htdocs/  # distからhtdocsに変更
+          path: htdocs/  # distからhtdocsに変更済み
 
   deploy:
     runs-on: ubuntu-latest
     needs: build
     steps:
-      - uses: actions/checkout@v3  # 最新バージョンに更新
+      - uses: actions/checkout@v4  # 最新バージョンに更新
       - name: Download Artifacts
-        uses: actions/download-artifact@v3  # 最新バージョンに更新
+        uses: actions/download-artifact@v4  # 最新バージョンに更新
         with:
-          name: htdocs  # distからhtdocsに変更
-          path: htdocs/  # distからhtdocsに変更
+          name: htdocs  # distからhtdocsに変更済み
+          path: htdocs/  # distからhtdocsに変更済み
       - name: Set up SSH
         run: |
           mkdir -p ~/.ssh
