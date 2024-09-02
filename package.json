@@ -1,0 +1,59 @@
+{
+  "name": "majestic-matter",
+  "type": "module",
+  "version": "0.0.1",
+  "author": "oimonymous",
+  "license": "MIT",
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro check && astro build && node replaceHtml.mjs",
+    "preview": "astro preview",
+    "astro": "astro",
+    "lint-all": "npm run prettier && npm run stylelint && npm run eslint",
+    "prettier": "prettier --write 'src/**/*.{ts,tsx,astro}'",
+    "stylelint": "stylelint --fix 'src/**/*.{scss,astro}'",
+    "eslint": "eslint --fix 'src/**/*.{ts,tsx,astro}'"
+  },
+  "dependencies": {
+    "@astrojs/check": "^0.7.0",
+    "@astrojs/sitemap": "^3.1.6",
+    "@splidejs/splide": "^4.1.4",
+    "@typescript-eslint/eslint-plugin": "^6.16.0",
+    "astro": "^4.11.5",
+    "astro-eslint-parser": "^0.16.1",
+    "astrojs": "^0.1.3",
+    "eslint-plugin-import": "^2.29.1",
+    "gsap": "^3.12.4",
+    "lil-gui": "^0.19.2",
+    "marked": "^11.1.1",
+    "sass": "^1.69.5",
+    "sharp": "^0.33.4",
+    "stylelint-declaration-block-no-ignored-properties": "^2.8.0",
+    "three": "^0.167.1",
+    "typescript": "^5.3.3",
+    "typescript-eslint": "^0.0.1-alpha.0"
+  },
+  "volta": {
+    "node": "20.10.0"
+  },
+  "devDependencies": {
+    "@typescript-eslint/parser": "^6.16.0",
+    "eslint": "^8.56.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-astro": "^0.31.0",
+    "eslint-plugin-jsx-a11y": "^6.8.0",
+    "postcss-html": "^1.5.0",
+    "prettier": "^3.1.1",
+    "prettier-plugin-astro": "^0.12.3",
+    "stylelint": "^16.1.0",
+    "stylelint-config-html": "^1.1.0",
+    "stylelint-config-prettier-scss": "^1.0.0",
+    "stylelint-config-recess-order": "^4.4.0",
+    "stylelint-config-sass-guidelines": "^11.0.0",
+    "stylelint-config-standard-scss": "^12.0.0",
+    "stylelint-prettier": "^5.0.0",
+    "stylelint-scss": "^6.0.0",
+    "stylelint-selector-bem-pattern": "^3.0.1"
+  }
+}

@@ -1,0 +1,74 @@
+---
+export interface Props {
+  pageName: string;
+  noindex?: boolean;
+  canonical?: boolean;
+  notLangTranslate?: boolean;
+  structuredData?: 'CompanyData' | 'BreadcrumbList' | 'WebData';
+}
+import '../assets/style/base/_base.scss';
+import { plainify } from '@/utils/textConverter';
+import type { configType } from '@/types/config.ts';
+import metaData from '@/layouts/metadata.json';
+import CompanyData from '@/layouts/StructuredData/CompanyData.astro';
+import BreadcrumbList from '@/layouts/StructuredData/BreadcrumbList.astro';
+import WebData from '@/layouts/StructuredData/WebData.astro';
+const config: configType = metaData as configType;
+const { pageName, noindex, canonical, notLangTranslate, structuredData } = Astro.props;
+const title = plainify(config.pages[pageName].title);
+const description = plainify(config.pages[pageName].description);
+//const url = config.site.url + config.pages[pageName].path;
+const url = config.site.url + Astro.url.pathname;
+const icon = config.site.icon;
+const icon32 = config.site.icon32;
+const icon16 = config.site.icon16;
+const icon256 = config.site.icon256;
+const icon192 = config.site.icon192;
+const shortcutIcon = config.site.shortcutIcon;
+const image = config.site.image;
+---
+
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" media="(prefers-color-scheme: light)" content="#fff" />
+    <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#000" />
+    <meta name="msapplication-TileImage" content={image} />
+    <meta name="msapplication-TileColor" content="#000000" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="#000000" />
+    <meta name="apple-mobile-web-app-title" content={title} />
+    <meta name="format-detection" content="telephone=no" />
+    <link rel="icon" href={icon} />
+    <link rel="icon" type="image/png" sizes="32×32" href={icon32} />
+    <link rel="icon" type="image/png" sizes="16×16" href={icon16} />
+    <link rel="icon" type="image/png" sizes="256×256" href={icon256} />
+    <link rel="icon" type="image/png" sizes="192×192" href={icon192} />
+    <link rel="apple-touch-icon" href={shortcutIcon} />
+    <title>{title}</title>
+    {notLangTranslate && <meta name="google" content="notranslate" />}
+    {noindex && <meta name="robots" content="noindex,nofollow" />}
+    {canonical && <link rel="canonical" href={url} item-prop="url" />}
+    <meta name="description" content={description} />
+    <meta property="og:url" content={url} />
+    <meta property="og:type" content={config.site.type} />
+    <meta property="og:title" content={title} />
+    <meta property="og:image" content={image} />
+    <meta property="og:description" content={description} />
+    <meta property="og:site_name" content={title} />
+    <meta property="og:locale" content="ja_JP" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:url" content={url} />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={image} />
+    {structuredData && structuredData == 'CompanyData' && <CompanyData />}
+    {structuredData && structuredData == 'BreadcrumbList' && <BreadcrumbList />}
+    {structuredData && structuredData == 'WebData' && <WebData />}
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>

@@ -1,0 +1,17 @@
+---
+import { optimizeImage } from '@/utils/optimizeImage';
+interface Props {
+  class?: string;
+  src: string;
+  alt: string;
+  [key: string]: any;
+}
+
+const isBuild = import.meta.env.SSR;
+const isProd = import.meta.env.MODE === 'production';
+
+const { src, class: className, ...props } = Astro.props;
+const optimizedSrc = isBuild && isProd ? await optimizeImage(src) : src;
+---
+
+<img src={optimizedSrc} class={className} {...props} />

@@ -1,0 +1,25 @@
+{
+  "site": {
+    "url": "https://anzokiharu.jp",
+    "title": "oimoテンプレート",
+    "type": "website",
+    "icon": "https://anzokiharu.jp/assets/images/favicon.ico",
+    "shortcutIcon": "https://anzokiharu.jp/assets/images/favicon.png",
+    "icon16": "",
+    "icon32": "",
+    "icon192": "",
+    "icon512": "",
+    "icon256": "",
+    "image": "https://anzokiharu.jp/assets/images/OGP.png"
+  },
+  "pages": {
+    "top": {
+      "title": "oimoTemp",
+      "description": "oimoTempです"
+    },
+    "test": {
+      "title": "oimoTempTest",
+      "description": "oimoTempTestです"
+    }
+  }
+}

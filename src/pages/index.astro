@@ -1,0 +1,94 @@
+---
+import Base from '@layouts/Base.astro';
+import Header from '@components/Header.astro';
+import InertialScrolling from '@/components/utils/InertialScrolling.astro';
+---
+
+<Base pageName="top">
+  <Header />
+  <InertialScrolling>
+    <main class="main">
+      <h2 class="main__copy">Welcome to <br />Astro-template.</h2>
+      <p class="main__note">ver absolute path</p>
+      <p class="main__text">Created by oimonymous</p>
+      <!-- <Image src="/assets/images/DSCF4738.jpg" alt="" /> -->
+    </main>
+    <div class="movie" id="movie"></div>
+  </InertialScrolling>
+</Base>
+
+<style lang="scss">
+  .main {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    background-color: utils.$colorBlack;
+    text-align: center;
+
+    /* @include mixins.mq-up(lg) {
+      background-image: url('/src/assets/images/favicon.svg');
+    } */
+
+    .main__copy {
+      margin-bottom: 8px;
+      color: utils.$colorWhite;
+      font-size: 70px;
+      line-height: 1;
+      font-family: utils.$inter;
+
+      @include utils.mq-down(md) {
+        margin-bottom: utils.vunitSp(12vw);
+        font-size: utils.vunitSp(40vw);
+      }
+
+      br {
+        display: none;
+        @include utils.mq-down(md) {
+          display: block;
+        }
+      }
+    }
+
+    .main__note {
+      margin-bottom: 32px;
+      color: utils.$colorWhite;
+      font-size: 22px;
+      line-height: 1;
+      font-family: utils.$inter;
+      @include utils.mq-down(md) {
+        margin-bottom: utils.vunitSp(20vw);
+        font-size: utils.vunitSp(20vw);
+      }
+    }
+
+    .main__text {
+      color: utils.$colorWhite;
+      font-size: 22px;
+      line-height: 1;
+      font-family: utils.$inter;
+      @include utils.mq-down(md) {
+        font-size: utils.vunitSp(10vw);
+      }
+    }
+  }
+</style>
+<style lang="scss" is:global>
+  .movie {
+    width: 100%;
+    height: 100vh;
+    background-color: #000;
+  }
+</style>
+<script>
+  import '/src/assets/scripts/main.ts';
+  import { Conf } from '@core/conf.ts';
+  import { YoutubePlayer } from '@/assets/scripts/utils/youtubePlayer';
+  console.log('test');
+  console.log(Conf.LG_PSD_WIDTH);
+
+  const target = document.getElementById('movie');
+  if (!target) throw new Error('target is not found');
+  new YoutubePlayer(target, 'JGwWNGJdvx8', { autoPlay: true, setTag: true });
+</script>
