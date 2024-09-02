@@ -19,8 +19,8 @@ jobs:
       - name: Upload Artifacts
         uses: actions/upload-artifact@v3
         with:
-          name: dist
-          path: dist/
+          name: htdocs
+          path: htdocs/
 
   deploy:
     runs-on: ubuntu-latest
@@ -30,8 +30,8 @@ jobs:
       - name: Download Artifacts
         uses: actions/download-artifact@v3
         with:
-          name: dist
-          path: dist/
+          name: htdocs
+          path: htdocs/
       - name: Set up SSH
         run: |
           mkdir -p ~/.ssh
@@ -45,4 +45,4 @@ jobs:
           DEV_DIR: ${{ secrets.DEV_DIR }}
         run: |
           ssh -tt $DEV_USER@$DEV_DOMAIN -i ~/.ssh/id_rsa -C "mkdir -p $DEV_DIR"
-          rsync -rltoDv -e "ssh -i ~/.ssh/id_rsa" --delete --checksum dist/ $DEV_USER@$DEV_DOMAIN:$DEV_DIR
+          rsync -rltoDv -e "ssh -i ~/.ssh/id_rsa" --delete --checksum htdocs/ $DEV_USER@$DEV_DOMAIN:$DEV_DIR
