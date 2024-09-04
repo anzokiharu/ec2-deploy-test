@@ -35,13 +35,13 @@ jobs:
       - name: Set up SSH
         run: |
           mkdir -p ~/.ssh
-          echo "${{ secrets.DEV_KEY }}" > ~/.ssh/id_rsa
+          echo "${{ secrets.TEST_DEV_KEY }}" > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
           echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
       - name: Deploy to Server
         env:
-          DEV_USER: ${{ secrets.DEV_USER }}
-          DEV_DOMAIN: ${{ secrets.DEV_DOMAIN }}
+          DEV_USER: ${{ secrets.TEST_DEV_USER }}
+          DEV_DOMAIN: ${{ secrets.TEST_DEV_DOMAIN }}
           DEV_DIR: ${{ secrets.DEV_DIR }}
         run: |
           ssh -i ~/.ssh/id_rsa $DEV_USER@$DEV_DOMAIN "mkdir -p $DEV_DIR"
