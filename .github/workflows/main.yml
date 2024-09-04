@@ -9,40 +9,40 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4  # 最新バージョンに更新
       - name: Set up Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4  # 最新バージョンに更新
         with:
-          node-version: '20.10.0'
+          node-version: '20.10.0'  # Node.js 20に対応
       - run: npm install
       - run: npm run build
       - name: Upload Artifacts
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4  # 最新バージョンに更新
         with:
-          name: dist
-          path: dist/
+          name: htdocs
+          path: htdocs/  # distからhtdocsに変更済み
 
   deploy:
     runs-on: ubuntu-latest
     needs: build
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4  # 最新バージョンに更新
       - name: Download Artifacts
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4  # 最新バージョンに更新
         with:
-          name: dist
-          path: dist/
+          name: htdocs  # distからhtdocsに変更済み
+          path: htdocs/  # distからhtdocsに変更済み
       - name: Set up SSH
         run: |
           mkdir -p ~/.ssh
-          echo "${{ secrets.DEV_KEY }}" > ~/.ssh/id_rsa
+          echo "${{ secrets.TEST_DEV_KEY }}" > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
           echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
       - name: Deploy to Server
         env:
-          DEV_USER: ${{ secrets.DEV_USER }}
-          DEV_DOMAIN: ${{ secrets.DEV_DOMAIN }}
+          DEV_USER: ${{ secrets.TEST_DEV_USER }}
+          DEV_DOMAIN: ${{ secrets.TEST_DEV_DOMAIN }}
           DEV_DIR: ${{ secrets.DEV_DIR }}
         run: |
-          ssh -tt $DEV_USER@$DEV_DOMAIN -i ~/.ssh/id_rsa -C "mkdir -p $DEV_DIR"
-          rsync -rltoDv -e "ssh -i ~/.ssh/id_rsa" --delete --checksum dist/ $DEV_USER@$DEV_DOMAIN:$DEV_DIR
+          ssh -i ~/.ssh/id_rsa $DEV_USER@$DEV_DOMAIN "mkdir -p $DEV_DIR"
+          rsync -rltoDv -e "ssh -i ~/.ssh/id_rsa" --delete --checksum htdocs/ $DEV_USER@$DEV_DOMAIN:$DEV_DIR
